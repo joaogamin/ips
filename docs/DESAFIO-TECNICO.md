@@ -40,11 +40,18 @@ A nossa empresa de e-commerce está expandindo a operação e passará a importa
 5. **Margem de Lucro Bruto:**
    * Sobre o custo final acumulado (Custo + Importação + Frete + Tributação por Estado), o setor comercial exige uma margem de **lucro bruto de 25%** na venda final ao consumidor.
 
-6. **Gestão de Estoque e Funcionalidades Esperadas:**
+6. **Destinação de Lucro (Reinvestimento em Tecnologia):**
+   * A empresa possui a governança e o costume de reinvestir exatamente **1/3 (um terço)** do lucro bruto de cada unidade vendida de volta para o setor de Tecnologia da Informação.
+   * Deve ser apresentado com o valor da Margem de Lucro Bruno, qual será também o valor a ser investido no Setor de Tecnologia da Informação.
+
+7. **Gestão de Estoque e Funcionalidades Esperadas:**
    A aplicação deve expor e processar três fluxos principais através de uma interface clara (com distribuição de telas a critério do desenvolvedor):
    * **Cadastro de Parâmetros de Custos:** Permitir a configuração/visualização das taxas (Devcoin, Alíquotas de Importação, Frete e Impostos estaduais) para garantir flexibilidade.
    * **Informar Compra de Lote (Entrada):** Registrar a entrada de um produto (Notebook), informando o valor de custo em Devcoin (D$) e a quantidade adquirida. Caso o produto já exista, a quantidade deve ser somada ao estoque atual.
-   * **Painel de Vendas (Consulta):** Apresentar a listagem dos notebooks cadastrados, exibindo o saldo atual em estoque e o valor unitário final de venda calculado para cada um dos 5 estados (SP, GO, RS, AM, BA).
+   * **Painel de Vendas (Consulta):** Apresentar a listagem dos notebooks cadastrados, exibindo o saldo atual em estoque e o valor unitário final de venda calculado para cada um dos 5 estados (SP, GO, RS, AM, BA). Também deve desmonstrar neste painel, imaginando a venda total dos produtos, o consolidado de:
+      * Valor total por estado da venda final e lucro bruto por estado;
+      * Somatória do valor total de venda final e lucro bruto;
+      *  Percentual que será investido no setor de TI;
 
 ---
 
