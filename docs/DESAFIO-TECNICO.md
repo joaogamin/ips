@@ -69,7 +69,7 @@ Descreva de maneira sucinta, em Markdown no formato de tópicos.
 ---
 
 ## 6. Instruções de Entrega e Acesso ao Repositório
-* **Prazo Limite Impreterível:** **12/06/2026**
+* **Prazo Limite Impreterível:** **Data Informada Na Entrevista**
 
 **Fluxo de Trabalho no GitHub:**
 1. **Não faça um Fork público** deste repositório para evitar que sua solução fique exposta para outros candidatos.
@@ -79,5 +79,5 @@ Descreva de maneira sucinta, em Markdown no formato de tópicos.
 5. Desenvolva sua solução contendo a cobertura de testes unitários automatizados (tanto para a lógica de precificação no Spring quanto para os componentes do Angular).
 6. **Documentação Exigida (`docs/*`):** Escreva um texto contendo o seu **Esboço de Spike** (conforme item 4), a divisão de tarefas entre o desenvolvimento manual e por IA, além de orientações, configurações e comandos necessários para rodar a aplicação localmente.
 7. Crie Pull Request (PR) e faça o seu próprio review (para demonstrar conceitos de reivew) e faça merge para a `main` a partir do PR.
-8. Faça o **Push** final de todas as suas branches até a data **12/06/2026**.
+8. Faça o **Push** final de todas as suas branches até a **Data Informada Na Entrevista**.
 
