@@ -1,4 +1,4 @@
-# Desafio Técnico Sênior: Sistema de Precificação de Notebooks Importados
+# Desafio Técnico: Sistema de Precificação de Notebooks Importados
 
 ## 1. Escopo e Contexto de Negócio
 A nossa empresa de e-commerce está expandindo a operação e passará a importar lotes de notebooks para revenda no Brasil. Para garantir a viabilidade financeira e a margem de lucro estipulada pelo setor comercial, precisamos de um microsserviço e uma interface visual que realizem o cálculo automatizado e exato do preço de venda unitário de cada produto, considerando flutuações de moedas, taxas alfandegárias, fretes dinâmicos e variações fiscais por estado brasileiro.
