@@ -61,7 +61,8 @@ A nossa empresa de e-commerce está expandindo a operação e passará a importa
 * **Frontend:** Angular 17+. O layout, número de telas e navegação ficam a seu critério técnico e de UX.
 * **Banco de Dados:** Banco relacional de sua escolha, mantendo um modelo de dados enxuto e normalizado.
 * **Precisão Matemática (Fator Crítico):** Erros de arredondamento em sistemas financeiros são inaceitáveis.
-
+* **Script SQL (DDL/DML):** Inclua no projeto um arquivo de script `.sql` contendo a estrutura de banco de dados (DDL de criação das tabelas e relacionamentos) e caso também possua DML, inclua neste mesmo arquivo os inserts iniciais com os parâmetros e informações que julgar necessários para o funcionamento inicial do sistema.
+  
 ---
 
 ## 4. Entregável Adicional: Esboço de Spike Técnica
