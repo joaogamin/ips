@@ -1,0 +1,110 @@
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-xl font-semibold text-slate-900">Painel de Vendas</h1>
+    <p class="text-sm text-slate-500 mt-0.5">Projeção de receita por estado × estoque atual</p>
+  </div>
+  <button mat-stroked-button (click)="load()" class="gap-1.5">
+    <mat-icon class="text-[18px]">refresh</mat-icon>
+    Atualizar
+  </button>
+</div>
+
+<div *ngIf="loading" class="flex justify-center items-center py-24">
+  <mat-spinner diameter="36"></mat-spinner>
+</div>
+
+<div *ngIf="errorMessage && !loading"
+     class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm mb-6">
+  <mat-icon class="text-[18px] mt-0.5 shrink-0">error_outline</mat-icon>
+  {{ errorMessage }}
+</div>
+
+<ng-container *ngIf="!loading && !errorMessage && dashboard">
+  <ng-container *ngIf="dashboard.notebooks.length > 0; else empty">
+
+    <!-- KPI cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white rounded-lg border border-slate-200 px-5 py-4">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Receita Total</p>
+        <p class="text-2xl font-semibold text-slate-900 mt-1">
+          {{ dashboard.totalGeral | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </p>
+        <p class="text-xs text-slate-400 mt-1">soma de todos os estados × estoque</p>
+      </div>
+
+      <div class="bg-white rounded-lg border border-slate-200 px-5 py-4">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Lucro Bruto (SP)</p>
+        <p class="text-2xl font-semibold text-emerald-600 mt-1">
+          {{ dashboard.lucroBrutoPorEstado.totalSP | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </p>
+        <p class="text-xs text-slate-400 mt-1">referência: estado de São Paulo</p>
+      </div>
+
+      <div class="bg-white rounded-lg border border-indigo-100 bg-indigo-50 px-5 py-4">
+        <p class="text-xs font-medium text-indigo-500 uppercase tracking-wide">Reinvestimento TI</p>
+        <p class="text-2xl font-semibold text-indigo-700 mt-1">
+          {{ dashboard.reinvestimentoTI | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </p>
+        <p class="text-xs text-indigo-400 mt-1">1/3 do lucro bruto</p>
+      </div>
+    </div>
+
+    <!-- Notebooks table -->
+    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-100">
+        <h2 class="text-sm font-semibold text-slate-700">Notebooks por Estado</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Preço unitário × quantidade em estoque</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200">
+              <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Notebook</th>
+              <th class="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Estoque</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">SP</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">GO</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">RS</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">AM</th>
+              <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">BA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let nb of dashboard.notebooks" class="border-b border-slate-100 hover:bg-slate-50/60 transition-colors">
+              <td class="px-5 py-3.5 font-medium text-slate-800">{{ nb.nome }}</td>
+              <td class="px-4 py-3.5 text-center text-slate-600">
+                <span class="inline-flex items-center justify-center bg-slate-100 text-slate-700 text-xs font-medium rounded-full px-2.5 py-0.5">
+                  {{ nb.quantidadeEstoque }}
+                </span>
+              </td>
+              <td class="px-4 py-3.5 text-right tabular-nums text-slate-700">{{ cellValue(nb, 'SP') | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3.5 text-right tabular-nums text-slate-700">{{ cellValue(nb, 'GO') | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3.5 text-right tabular-nums text-slate-700">{{ cellValue(nb, 'RS') | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3.5 text-right tabular-nums text-slate-700">{{ cellValue(nb, 'AM') | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3.5 text-right tabular-nums text-slate-700">{{ cellValue(nb, 'BA') | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="bg-slate-50 border-t border-slate-200">
+              <td colspan="2" class="px-5 py-3 text-xs font-semibold text-slate-600 uppercase tracking-wide">Total por Estado</td>
+              <td class="px-4 py-3 text-right tabular-nums font-semibold text-slate-800">{{ dashboard.totaisPorEstado.totalSP | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3 text-right tabular-nums font-semibold text-slate-800">{{ dashboard.totaisPorEstado.totalGO | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3 text-right tabular-nums font-semibold text-slate-800">{{ dashboard.totaisPorEstado.totalRS | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3 text-right tabular-nums font-semibold text-slate-800">{{ dashboard.totaisPorEstado.totalAM | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="px-4 py-3 text-right tabular-nums font-semibold text-slate-800">{{ dashboard.totaisPorEstado.totalBA | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-template #empty>
+    <div class="bg-white rounded-lg border border-slate-200 flex flex-col items-center justify-center py-20 text-center">
+      <mat-icon class="text-slate-300 mb-3" style="font-size: 48px; width: 48px; height: 48px;">inventory_2</mat-icon>
+      <p class="text-slate-600 font-medium">Nenhum notebook cadastrado</p>
+      <p class="text-sm text-slate-400 mt-1">Registre um lote para ver o painel de vendas.</p>
+    </div>
+  </ng-template>
+</ng-container>
