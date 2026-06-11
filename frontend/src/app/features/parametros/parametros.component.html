@@ -1,0 +1,98 @@
+<div class="mb-6">
+  <h1 class="text-xl font-semibold text-slate-900">Parâmetros de Custos</h1>
+  <p class="text-sm text-slate-500 mt-0.5">Taxas e alíquotas utilizadas no motor de precificação</p>
+</div>
+
+<div *ngIf="loadError"
+     class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm mb-6">
+  <mat-icon class="text-[18px] mt-0.5 shrink-0">error_outline</mat-icon>
+  {{ loadError }}
+</div>
+
+<div *ngIf="!loadError" class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="bg-slate-50 border-b border-slate-200">
+        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide w-56">Parâmetro</th>
+        <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide w-52">Valor atual</th>
+        <th class="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Descrição</th>
+        <th class="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide w-28">Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let row of rows">
+        <tr class="border-b border-slate-100 transition-colors"
+            [class.bg-indigo-50]="row.expanded"
+            [class.hover:bg-slate-50]="!row.expanded">
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-2">
+              <code class="text-xs font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">{{ row.data.parametro }}</code>
+              <button
+                class="inline-flex items-center justify-center w-5 h-5 rounded-full border text-xs font-bold transition-colors duration-150 shrink-0 leading-none"
+                [class.border-indigo-500]="row.expanded"
+                [class.bg-indigo-600]="row.expanded"
+                [class.text-white]="row.expanded"
+                [class.border-slate-300]="!row.expanded"
+                [class.text-slate-500]="!row.expanded"
+                [class.hover:border-indigo-400]="!row.expanded"
+                [class.hover:text-indigo-600]="!row.expanded"
+                (click)="toggle(row)"
+                title="Ver detalhes do parâmetro"
+              >?</button>
+            </div>
+          </td>
+          <td class="px-4 py-3.5">
+            <div class="flex flex-col gap-0.5">
+              <input
+                type="number"
+                [formControl]="row.control"
+                min="0"
+                step="any"
+                class="w-40 px-3 py-1.5 text-sm border rounded-md outline-none transition-colors
+                       border-slate-300 text-slate-800
+                       focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+              />
+              <!-- espaço reservado — evita layout shift ao aparecer/sumir a mensagem -->
+              <div class="min-h-[16px]">
+                <span *ngIf="row.errorMessage" class="text-xs text-red-600 leading-none">{{ row.errorMessage }}</span>
+                <span *ngIf="row.successMessage" class="text-xs text-emerald-600 leading-none">{{ row.successMessage }}</span>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3.5 text-slate-500 text-xs leading-relaxed">{{ row.data.descricao }}</td>
+          <td class="px-4 py-3.5 text-right">
+            <button mat-stroked-button
+                    (click)="save(row)"
+                    [disabled]="row.saving"
+                    class="text-xs !min-w-0 !px-3 !h-8">
+              {{ row.saving ? 'Salvando…' : 'Salvar' }}
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="row.expanded" class="border-b border-slate-100">
+          <td colspan="4" class="p-0">
+            <div class="border-l-4 px-5 py-4"
+                 [class.border-indigo-500]="row.data.parametro === 'icms_na_base_margem'"
+                 [class.bg-indigo-50]="row.data.parametro === 'icms_na_base_margem'"
+                 [class.border-slate-400]="row.data.parametro !== 'icms_na_base_margem'"
+                 [class.bg-slate-50]="row.data.parametro !== 'icms_na_base_margem'">
+              <ng-container *ngIf="getInfo(row.data.parametro) as info">
+                <p class="text-[10px] font-bold uppercase tracking-widest mb-2"
+                   [class.text-indigo-500]="row.data.parametro === 'icms_na_base_margem'"
+                   [class.text-slate-400]="row.data.parametro !== 'icms_na_base_margem'">
+                  {{ info.label }}
+                </p>
+                <p class="text-sm text-slate-700 leading-relaxed mb-3">{{ info.impact }}</p>
+                <pre class="text-xs leading-relaxed rounded-md px-4 py-3 mb-2 overflow-x-auto whitespace-pre font-mono bg-[#1e1e2e] text-[#cdd6f4]">{{ info.formula }}</pre>
+                <p *ngIf="info.note" class="text-xs text-amber-800 bg-amber-50 border-l-2 border-amber-400 px-3 py-2 rounded-r-md mt-2 leading-relaxed">
+                  <strong class="text-amber-900">Atenção:</strong> {{ info.note }}
+                </p>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

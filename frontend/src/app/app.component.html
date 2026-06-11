@@ -1,0 +1,42 @@
+<header class="bg-indigo-600 shadow-md sticky top-0 z-50">
+  <div class="max-w-screen-xl mx-auto px-6 h-14 flex items-center gap-8">
+    <div class="flex items-center gap-2 shrink-0">
+      <mat-icon class="text-white text-xl leading-none">laptop_mac</mat-icon>
+      <span class="text-white font-semibold text-sm tracking-tight">IPS — Precificação</span>
+    </div>
+
+    <nav class="flex items-center gap-0.5 ml-auto">
+      <a routerLink="/dashboard"
+         routerLinkActive="nav-active"
+         class="flex items-center gap-1.5 text-white/75 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150 no-underline">
+        <mat-icon class="text-[18px] leading-none">bar_chart</mat-icon>
+        Painel
+      </a>
+      <a routerLink="/parametros"
+         routerLinkActive="nav-active"
+         class="flex items-center gap-1.5 text-white/75 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150 no-underline">
+        <mat-icon class="text-[18px] leading-none">tune</mat-icon>
+        Parâmetros
+      </a>
+      <a routerLink="/notebooks"
+         routerLinkActive="nav-active"
+         [routerLinkActiveOptions]="{exact: true}"
+         class="flex items-center gap-1.5 text-white/75 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150 no-underline">
+        <mat-icon class="text-[18px] leading-none">devices</mat-icon>
+        Notebooks
+      </a>
+      <a routerLink="/notebooks/lote"
+         routerLinkActive="nav-active"
+         class="flex items-center gap-1.5 text-white/75 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150 no-underline">
+        <mat-icon class="text-[18px] leading-none">add_shopping_cart</mat-icon>
+        Compra de Lote
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="bg-slate-50 min-h-[calc(100vh-56px)]">
+  <div class="max-w-screen-xl mx-auto px-6 py-8">
+    <router-outlet></router-outlet>
+  </div>
+</main>
