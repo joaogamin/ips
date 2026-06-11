@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15
+    container_name: ips_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ips_db}
+      POSTGRES_USER: ${POSTGRES_USER:-ips_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ips_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/sql/data.sql:/docker-entrypoint-initdb.d/02-data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ips_user} -d ${POSTGRES_DB:-ips_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ips_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-ips_user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-ips_pass}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
