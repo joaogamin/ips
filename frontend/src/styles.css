@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #0f172a;
+  background-color: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Angular Material font override */
+.mat-typography,
+.mat-mdc-form-field,
+.mdc-text-field,
+.mat-mdc-button {
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+/* Tighten Material form field density */
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-shape: 6px;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  height: 18px;
+}
+
+/* Router link active override for navbar */
+a.nav-active {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+}
