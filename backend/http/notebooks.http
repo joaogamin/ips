@@ -1,0 +1,75 @@
+### Listar todos os notebooks — espera HTTP 200
+GET http://localhost:8080/api/notebooks
+Accept: application/json
+
+###
+
+### Buscar notebook por id válido — espera HTTP 200
+GET http://localhost:8080/api/notebooks/1
+Accept: application/json
+
+###
+
+### Buscar notebook por id inexistente — espera HTTP 404
+GET http://localhost:8080/api/notebooks/99999
+Accept: application/json
+
+###
+
+### Compra de lote válida — espera HTTP 202
+POST http://localhost:8080/api/notebooks/lote
+Content-Type: application/json
+
+{
+  "nome": "Dell XPS 15",
+  "custoDev": 1200,
+  "quantidade": 10
+}
+
+###
+
+### Compra de lote válida (segundo notebook)
+POST http://localhost:8080/api/notebooks/lote
+Content-Type: application/json
+
+{
+  "nome": "Lenovo ThinkPad X1",
+  "custoDev": 3000,
+  "quantidade": 5
+}
+
+###
+
+### Payload inválido — nome vazio (espera HTTP 422)
+POST http://localhost:8080/api/notebooks/lote
+Content-Type: application/json
+
+{
+  "nome": "",
+  "custoDev": 1200,
+  "quantidade": 5
+}
+
+###
+
+### Payload inválido — custo negativo (espera HTTP 422)
+POST http://localhost:8080/api/notebooks/lote
+Content-Type: application/json
+
+{
+  "nome": "Notebook Teste",
+  "custoDev": -100,
+  "quantidade": 5
+}
+
+###
+
+### Payload inválido — quantidade zero (espera HTTP 422)
+POST http://localhost:8080/api/notebooks/lote
+Content-Type: application/json
+
+{
+  "nome": "Notebook Teste",
+  "custoDev": 1200,
+  "quantidade": 0
+}
