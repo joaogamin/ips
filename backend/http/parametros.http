@@ -1,0 +1,36 @@
+### Listar todos os parâmetros (200 OK)
+GET http://localhost:8080/api/parametros
+Accept: application/json
+
+###
+
+### Atualizar valor válido (200 OK)
+PUT http://localhost:8080/api/parametros/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "valor": 3.9500000000
+}
+
+###
+
+### Atualizar com valor nulo (400 Bad Request)
+PUT http://localhost:8080/api/parametros/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "valor": null
+}
+
+###
+
+### Atualizar com id inexistente (404 Not Found)
+PUT http://localhost:8080/api/parametros/9999
+Content-Type: application/json
+Accept: application/json
+
+{
+  "valor": 1.5000000000
+}
