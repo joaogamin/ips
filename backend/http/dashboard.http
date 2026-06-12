@@ -1,0 +1,10 @@
+### Painel de vendas com notebooks cadastrados — espera HTTP 200
+GET http://localhost:8080/api/dashboard
+Accept: application/json
+
+###
+
+### Painel de vendas sem notebooks (lista vazia) — espera HTTP 200 com listas vazias e totais zerados
+# Para testar: limpe todos os notebooks do banco antes de chamar.
+GET http://localhost:8080/api/dashboard
+Accept: application/json

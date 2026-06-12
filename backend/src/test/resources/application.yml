@@ -1,0 +1,23 @@
+# Override para testes: herda configurações base e permite que o Hibernate atualize o schema.
+# Necessário porque a tabela pode estar em estado anterior à adição da coluna 'version'.
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:ips_db}
+    username: ${POSTGRES_USER:ips_user}
+    password: ${POSTGRES_PASSWORD:ips_pass}
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: never
+  jpa:
+    defer-datasource-initialization: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:ips_user}
+    password: ${RABBITMQ_PASS:ips_pass}
+    virtual-host: ${RABBITMQ_VHOST:/}
